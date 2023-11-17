@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Secret Santa Randomiser</title>
+  <meta charset="UTF-8">
+
+<style type="text/css">
+<!--
+
+/*******************************************
+*                                          *
+*  Andy's Secret Santa Randomiser.         *
+*  html, css and Javascript                *
+*  Couples will not pair                   *
+*  Last EDIT 16 Nov 2023                   *
+*  Run from a browser                      *
+*                                          *
+********************************************/
+
+/*
+                           NOTE TO SELF
+   When changing people quantity, look for the 8 [ EDIT ] comments.
+
+*/
+
+body {
+    background-color: #fff8dc; /* pale yellow */
+    font-family: arial,helvetica,clean,sans-serif;
+    font-weight: normal;
+    color: #000080; /* #000080 dark blue */
+    }
+
+#maindiv{
+    margin: 20px 0px 0px 40px; /* t r b l */
+    padding: 0px 10px 0px 0px;
+    }
+
+h1, h2, p {
+    font-size: 153.9%;
+    line-height: 130%;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    }
+
+p {
+    font-size: 100%;
+    }
+
+table, table.two {
+    border: 0px;
+    }
+
+td.h, td.a, td.b {
+    border: 0px;
+    text-align: center;
+    font-size: 100%;
+    line-height: 130%;
+}
+
+td.h {
+    background-color: #80CC99; /* grean */
+    }
+
+td.a {
+    background-color: #B8DBFF; /* mid blue */
+    }
+
+td.b {
+    background-color: #CCE6FF; /* lighter blue */
+    }
+
+/* this is the button cell css */
+td.c {
+    text-align: right;
+    }
+
+/* rtc are my run time check cells to the right */
+td.rtc {
+    font-size: 100%;
+    line-height: 130%;
+    color:#000000; /* black */
+    }
+
+/* this is the click counter css */
+#IDcounter{
+    font-size: 100%;
+    line-height: 130%;
+    color:#000080;
+    }
+
+-->
+</style>
+
+</head>
+
+<body onLoad="on_page_load();">
+  <!--  -->
+  <noscript>
+    <h2>Henry says enable JavaScript for this to work.</h2>
+  </noscript>
+
+  <div id="maindiv">
+
+    <table width="750">
+      <tr>
+        <td>
+          <h1>
+            Henry&#39;s Secret Santa Randomiser<br><br>
+          </h1>
+        </td>
+      </tr>
+    </table>
+
+    <table class="two" width="700" cellpadding="2">
+      <tr>
+        <td class="h" width="30%">We in this column</td>
+        <td class="h" width="30%">Will buy a present for</td>
+        <td id="run_time_check_c"  class="rtc"  width="25%"></td>
+        <td id="run_time_check_d"  class="rtc"  width="15%"></td>
+      </tr>
+      <tr>
+        <td id="a1"  class="a"></td>
+        <td id="b1"  class="a"></td>
+        <td id="c1"  class="rtc"></td>
+        <td id="d1"  class="rtc"></td>
+      </tr>
+      <tr>
+        <td id="a2"  class="b"></td>
+        <td id="b2"  class="b"></td>
+        <td id="c2"  class="rtc"></td>
+        <td id="d2"  class="rtc"></td>
+      </tr>
+      <tr>
+        <td id="a3"  class="a"></td>
+        <td id="b3"  class="a"></td>
+        <td id="c3"  class="rtc"></td>
+        <td id="d3"  class="rtc"></td>
+      </tr>
+      <tr>
+        <td id="a4"  class="b"></td>
+        <td id="b4"  class="b"></td>
+        <td id="c4"  class="rtc"></td>
+        <td id="d4"  class="rtc"></td>
+      </tr>
+      <tr>
+        <td id="a5"  class="a"></td>
+        <td id="b5"  class="a"></td>
+        <td id="c5"  class="rtc"></td>
+        <td id="d5"  class="rtc"></td>
+      </tr>
+      <tr>
+        <td id="a6"  class="b"></td>
+        <td id="b6"  class="b"></td>
+        <td id="c6"  class="rtc"></td>
+        <td id="d6"  class="rtc"></td>
+      </tr>
+      <tr>
+        <td id="a7"  class="a"></td>
+        <td id="b7"  class="a"></td>
+        <td id="c7"  class="rtc"></td>
+        <td id="d7"  class="rtc"></td>
+      </tr>
+      <tr>
+        <td id="a8"  class="b"></td>
+        <td id="b8"  class="b"></td>
+        <td id="c8"  class="rtc"></td>
+        <td id="d8"  class="rtc"></td>
+      </tr>
+      <tr>
+        <td id="a9"  class="a"></td>
+        <td id="b9"  class="a"></td>
+        <td id="c9"  class="rtc"></td>
+        <td id="d9"  class="rtc"></td>
+      </tr>
+
+<!--    [ EDIT ] for total of people     -->
+<!--
+      <tr>
+        <td id="a10"  class="b"></td>
+        <td id="b10"  class="b"></td>
+        <td id="c10"  class="rtc"></td>
+        <td id="d10"  class="rtc"></td>
+      </tr>
+-->
+<!--    [ EDIT ] for total of people     -->
+
+      <tr>
+        <td id="last_item_zero_check"></td>
+        <td class="c"><p><button onClick="click_button_function();" id="button">Click Button</button></p></td>
+        <td id="IDcounter"  class="rtc"></td>
+        <td id="IDsumofselected"  class="rtc"></td>
+      </tr>
+
+    </table>
+
+    <table>
+      <tr>
+        <td>
+          <p>
+            Think of a number between 1 and 100<br><br>
+            Click the button that many times and use the listing above<br><br>
+            Dale & Abi, David & Sarah, Susan & Ted, will not pair<br><br>
+            Ho! Ho! Ho!<br><br>
+            A.
+          </p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+<script type="text/javascript">
+<!--
+// console.log();
+
+function max_number_people() {
+    let number_of_people = 9; // [ EDIT ] number of people
+    return number_of_people;
+}
+
+/***************************************************************************/
+
+function run_time_check() {
+    const check = false;  /* [ EDIT ] to true to display runtime check */
+    return check;
+}
+
+/***************************************************************************/
+
+function on_page_load() {
+
+    let number_of_people = max_number_people();
+    let show_run_time_check = run_time_check();
+    let i=0; // variable i with function scope
+
+    // create array for names in 'switch_function'
+    let all = [];
+    // populate array from 1 to number of people
+    // the array will hold a number not names
+    for (i=0; i<number_of_people; i++) {
+        all[i] = i + 1;
+    }
+
+    let list_cells = [];
+    // gets doc element ID and adds letter 'a' required as ...
+    // ... valid html must start with a letter
+    for (i=0; i<number_of_people; i++) {
+        list_cells[i] = document.getElementById("a" + (i + 1));
+    }
+
+    // writes names in first column on page-load by calling switch_function
+    for(i=0; i<number_of_people; i++)  {
+        list_cells[i].innerHTML = switch_function(all[i]);
+    }
+
+    // writes 0 to IDcounter on page to avoid error in main function
+    document.getElementById("IDcounter").innerHTML = 0;
+
+    // writes 0 to last_person_as_zero_counter check to avoid error in main function
+    document.getElementById("last_item_zero_check").innerHTML = 0;
+    document.getElementById("last_item_zero_check").style.color = "#fff8dc"; // pale yellow
+
+    // sets focus to click button on page-load
+    document.getElementById("button").focus();
+
+   if (show_run_time_check == true)
+   {
+       document.getElementById("run_time_check_c").innerHTML = "Available No.s";
+       document.getElementById("run_time_check_d").innerHTML = "Selected No.";
+   }
+
+}
+
+/***************************************************************************/
+
+// Matches name to array number
+function switch_function(n) {
+
+    let person = "";
+        switch(n)
+        {
+        case 1:
+            person = "Dale";
+            break;
+        case 2:
+            person = "Abi";
+            break;
+        case 3:
+            person = "David";
+            break;
+        case 4:
+            person = "Sarah";
+            break;
+        case 5:
+            person = "Susan";
+            break;
+        case 6:
+            person = "Ted";
+            break;
+        case 7:
+            person = "Jennifer";
+            break;
+        case 8:
+            person = "Gabby";
+            break;
+        case 9:
+            person = "Andy";
+            break;
+        }
+        /**** [ EDIT ] quantity of case items and names ****/
+        // don't forget the break statement
+
+    return person;
+}
+
+/***************************************************************************/
+
+// call_c function
+
+// parameters are numbers not available or used in previous iterations
+// the iteration parameter is used to select the document table row to print
+
+/****** [ EDIT ] number of parameters appropriate for amount of people ******/
+function call_c(a1, a2, a3, a4, a5, a6, a7, a8, a9, iteration) {
+
+    // create array from parameters above
+
+    /***** [ EDIT ] number of parameters appropriate for amount of people *****/
+    let passed_parameters = [a1, a2, a3, a4, a5, a6, a7, a8, a9];
+
+    let number_of_people = max_number_people();
+    let show_run_time_check = run_time_check();
+    let i=0; // variable i with function scope
+
+    // create array of available numbers to check against
+    let available_numbers = [];
+    // populate array from 1 to number of people
+    for (i=0; i<number_of_people; i++) {
+        available_numbers[i] = i + 1;
+    }
+
+    let without_zeros = [];
+
+    // This part using the method 'not includes'
+    for (i=0; i<number_of_people; i++) {
+       if (!passed_parameters.includes(available_numbers[i])) {
+              without_zeros.push(available_numbers[i]);
+       }
+    }
+
+    /*
+       It is possible for the last item in the i[] array in second_function to return
+       the last person. This will cause the available_numbers array to return empty.
+       In such a case the 'else' below will assign my_random_number = 0,
+       this will trigger the do-while loop in click_button_function to loop again.
+    */
+
+    // checks if 'without_zeros' array is empty
+    // if not empty, generate one random number from remaining valid numbers
+    let my_random_number = 0;
+    if (without_zeros.length > 0) {
+        // this calculate a random index of the without_zeros array
+        let random_index = Math.floor(Math.random() * without_zeros.length);
+        my_random_number = without_zeros[random_index];
+
+        // iteration is the last passed parameter of this function
+        if (show_run_time_check == true) {
+            // writes available numbers to column c row iteration of table
+            document.getElementById("c" + iteration).innerHTML = without_zeros;
+            // writes number used to column d row iteration of table
+            document.getElementById("d" + iteration).innerHTML = my_random_number;
+        }
+
+    }
+    else
+    {
+        my_random_number = 0;
+        // console.log(my_random_number);
+        if (show_run_time_check == true) {
+            // writes to fourth column of table
+            document.getElementById("d" + iteration).innerHTML = my_random_number;
+        }
+    }
+
+    // this function only returns one number and so is called for each person
+
+    return my_random_number;
+}
+
+/***************************************************************************/
+
+// second function
+function second_function() {
+
+    // the last argument in brackets counts 'call_c' function iterations
+    // identify couples that pair here and pass to 'call_c' function with used numbers
+    let i = [];
+    i[0] = call_c(1,2,0,0,0,0,0,0,0,'1');
+    i[1] = call_c(1,2,i[0],0,0,0,0,0,0,'2');
+    i[2] = call_c(3,4,i[0],i[1],0,0,0,0,0,'3');
+    i[3] = call_c(3,4,i[0],i[1],i[2],0,0,0,0,'4');
+    i[4] = call_c(5,6,i[0],i[1],i[2],i[3],0,0,0,'5');
+    i[5] = call_c(5,6,i[0],i[1],i[2],i[3],i[4],0,0,'6');
+    i[6] = call_c(7,i[0],i[1],i[2],i[3],i[4],i[5],0,0,'7');
+    i[7] = call_c(8,i[0],i[1],i[2],i[3],i[4],i[5],i[6],0,'8');
+    i[8] = call_c(9,i[0],i[1],i[2],i[3],i[4],i[5],i[6],i[7],'9');
+
+    /****** [ EDIT ] number of array items and last argument ******/
+    // this means all array lines to match number of people and the last string as an iteration counter
+
+    return i; // returns an array
+}
+
+/***************************************************************************/
+
+// main function
+function click_button_function() {
+
+    let number_of_people = max_number_people();
+    let show_run_time_check = run_time_check();
+    let i=0; // variable i with function scope
+
+    // gets click_counter from document - parseInt command passes string as integer
+    let click_counter = parseInt(document.getElementById("IDcounter").innerHTML);
+    let last_person_as_zero_counter = parseInt(document.getElementById("last_item_zero_check").innerHTML);
+
+
+    // create array to hold html cell ID elements
+    let celB = [];
+    // gets doc element ID and adds letter 'b' required for valid html
+    for (i=0; i<number_of_people; i++)
+    {
+        celB[i] = document.getElementById("b" + (i + 1));
+    }
+
+    // creates array to receive returned array from second function
+    let giver = [];
+    // call second_function and receives array
+    // it is possible to not have a random number for the last person in the array.
+    // the second function will then return 0
+    // the while loop checks the last person and second from last person for a zero
+    do {
+      giver = second_function();
+      // the next if is just a runtime visual check
+      if (giver[number_of_people] == 0 || giver[number_of_people -1] == 0) {
+          last_person_as_zero_counter++;
+          //console.log(last_person_as_zero_counter);
+
+      }
+    }
+    while (giver[number_of_people] == 0 || giver[number_of_people -1] == 0);
+    // I've used method below to show the last item index and random number in the
+    // returned giver array as I don't think console.log can display individual array items
+    // let test_for_error = giver[number_of_people -1];
+    // console.log(number_of_people - 1 + "   " + test_for_error);
+
+    // click_counter increment
+    click_counter++;
+    // resets click_counter
+    if (click_counter == 101) {
+        click_counter = 1;
+    }
+
+    // if last person not equal to 0 all is OK so write giver[] array to page
+    if (giver[number_of_people - 1] != 0) {
+        for (let xxx in giver) {
+            celB[xxx].innerHTML = switch_function(giver[xxx]);
+        }
+    }
+
+    // final check *********************************
+    let all = [];
+    // populate array from 1 to number of people
+    // the array will hold a number not names
+    for (i=0; i<number_of_people; i++) {
+        all[i] = i + 1;
+    }
+    // console.log(all);
+    // console.log(giver);
+    let final_check = 1;
+    if(all.length != giver.length) {
+        final_check++;
+    }
+    // comparing each element of array
+    for(i=0; i<number_of_people; i++) {
+        if(all[i] == giver[i]) {
+             final_check++;
+        }
+    }
+    // console.log(final_check);
+    // final check *********************************
+
+    let click_counter_as_string = click_counter.toString();
+    // writes click_counter to page
+    if (final_check == 1) {
+        document.getElementById("IDcounter").style.color = "green";
+    } else {
+        document.getElementById("IDcounter").style.color = "red";
+    }
+    document.getElementById("IDcounter").innerHTML = click_counter_as_string;
+
+    // this check displays amount of times last item is 0
+    document.getElementById("last_item_zero_check").style.color = "#fff8dc"; // pale yellow
+    document.getElementById("last_item_zero_check").innerHTML = last_person_as_zero_counter;
+
+    if (show_run_time_check == true) {
+        if (last_person_as_zero_counter > 0) {
+            document.getElementById("last_item_zero_check").style.color = "#000080";
+        }
+    }
+
+    if (show_run_time_check == true) {
+        // runtime check
+
+        let usedNumber = 0;
+        let sumOfUsedNumbers = 0;
+
+        // gets and sums used numbers in last column of table
+        for (i=0; i<number_of_people; i++) {
+            usedNumber = parseInt(document.getElementById("d" + (i + 1)).innerHTML);
+            sumOfUsedNumbers = sumOfUsedNumbers + usedNumber;
+        }
+
+        // write sum of used numbers
+        document.getElementById("IDsumofselected").innerHTML = sumOfUsedNumbers;
+
+    }
+
+}
+// console.log("twas Andy wot wrote this");
+
+//-->
+</script>
+
+</body>
+</html>
